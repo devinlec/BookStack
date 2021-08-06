@@ -23,7 +23,7 @@ class ControlIframeSecurity
     {
         $iframeHosts = collect(explode(' ', config('app.iframe_hosts', '')))->filter();
         if ($iframeHosts->count() > 0) {
-            config()->set('session.same_site', 'none');
+            config()->set('session.same_site', 'lax');
         }
 
         $iframeHosts->prepend("'self'");
