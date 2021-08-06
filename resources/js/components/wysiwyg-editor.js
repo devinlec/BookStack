@@ -498,6 +498,7 @@ class WysiwygEditor {
             plugins: this.plugins,
             imagetools_toolbar: 'imageoptions',
             toolbar: this.getToolBar(),
+			language: 'fr_FR',
             content_style: `html, body, html.dark-mode {background: ${this.isDarkMode ? '#222' : '#fff'};} body {padding-left: 15px !important; padding-right: 15px !important; margin:0!important; margin-left:auto!important;margin-right:auto!important;}`,
             style_formats: [
                 {title: "Header Large", format: "h2"},
