@@ -1,7 +1,7 @@
 <?php
 
 Route::get('/status', 'StatusController@show');
-Route::get('/robots.txt', 'HomeController@getRobots');
+Route::get('/robots.txt', 'HomeController@robots');
 
 // Authenticated routes...
 Route::group(['middleware' => 'auth'], function () {
@@ -225,12 +225,25 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
+// MFA routes
+Route::group(['middleware' => 'mfa-setup'], function () {
+    Route::get('/mfa/setup', 'Auth\MfaController@setup');
+    Route::get('/mfa/totp/generate', 'Auth\MfaTotpController@generate');
+    Route::post('/mfa/totp/confirm', 'Auth\MfaTotpController@confirm');
+    Route::get('/mfa/backup_codes/generate', 'Auth\MfaBackupCodesController@generate');
+    Route::post('/mfa/backup_codes/confirm', 'Auth\MfaBackupCodesController@confirm');
+});
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/mfa/verify', 'Auth\MfaController@verify');
+    Route::post('/mfa/totp/verify', 'Auth\MfaTotpController@verify');
+    Route::post('/mfa/backup_codes/verify', 'Auth\MfaBackupCodesController@verify');
+});
+Route::delete('/mfa/{method}/remove', 'Auth\MfaController@remove')->middleware('auth');
+
 // Social auth routes
 Route::get('/login/service/{socialDriver}', 'Auth\SocialController@login');
 Route::get('/login/service/{socialDriver}/callback', 'Auth\SocialController@callback');
-Route::group(['middleware' => 'auth'], function () {
-    Route::post('/login/service/{socialDriver}/detach', 'Auth\SocialController@detach');
-});
+Route::post('/login/service/{socialDriver}/detach', 'Auth\SocialController@detach')->middleware('auth');
 Route::get('/register/service/{socialDriver}', 'Auth\SocialController@register');
 
 // Login/Logout routes
@@ -263,4 +276,4 @@ Route::post('/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail
 Route::get('/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm');
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
-Route::fallback('HomeController@getNotFound')->name('fallback');
+Route::fallback('HomeController@notFound')->name('fallback');

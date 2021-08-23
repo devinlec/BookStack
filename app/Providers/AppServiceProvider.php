@@ -3,6 +3,7 @@
 namespace BookStack\Providers;
 
 use Blade;
+use BookStack\Auth\Access\LoginService;
 use BookStack\Auth\Access\SocialAuthService;
 use BookStack\Entities\BreadcrumbsViewComposer;
 use BookStack\Entities\Models\Book;
@@ -53,7 +54,7 @@ class AppServiceProvider extends ServiceProvider
         ]);
 
         // View Composers
-        View::composer('partials.breadcrumbs', BreadcrumbsViewComposer::class);
+        View::composer('entities.breadcrumbs', BreadcrumbsViewComposer::class);
     }
 
     /**
@@ -68,7 +69,7 @@ class AppServiceProvider extends ServiceProvider
         });
 
         $this->app->singleton(SocialAuthService::class, function ($app) {
-            return new SocialAuthService($app->make(SocialiteFactory::class));
+            return new SocialAuthService($app->make(SocialiteFactory::class), $app->make(LoginService::class));
         });
     }
 }
