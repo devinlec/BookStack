@@ -30,6 +30,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \BookStack\Http\Middleware\VerifyCsrfToken::class,
+            \BookStack\Http\Middleware\CheckEmailConfirmed::class,
             \BookStack\Http\Middleware\RunThemeActions::class,
             \BookStack\Http\Middleware\Localization::class,
         ],
@@ -38,6 +39,7 @@ class Kernel extends HttpKernel
             \BookStack\Http\Middleware\EncryptCookies::class,
             \BookStack\Http\Middleware\StartSessionIfCookieExists::class,
             \BookStack\Http\Middleware\ApiAuthenticate::class,
+            \BookStack\Http\Middleware\CheckEmailConfirmed::class,
         ],
     ];
 
@@ -48,10 +50,9 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth'       => \BookStack\Http\Middleware\Authenticate::class,
-        'can'        => \Illuminate\Auth\Middleware\Authorize::class,
+        'can'        => \BookStack\Http\Middleware\CheckUserHasPermission::class,
         'guest'      => \BookStack\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'perm'       => \BookStack\Http\Middleware\PermissionMiddleware::class,
         'guard'      => \BookStack\Http\Middleware\CheckGuard::class,
         'mfa-setup'  => \BookStack\Http\Middleware\AuthenticatedOrPendingMfa::class,
     ];
