@@ -28,12 +28,11 @@ function editorPaste(event, editor, wysiwygComponent) {
 
             uploadImageFile(imageFile, wysiwygComponent).then(resp => {
                 const safeName = resp.name.replace(/"/g, '');
-                const newImageHtml = `<img src="${resp.thumbs.display}" alt="${safeName}" />`;
 
-                const newEl = editor.dom.create('a', {
-                    target: '_blank',
-                    href: resp.url,
-                }, newImageHtml);
+                const newEl = editor.dom.create('img', {
+                    src: resp.thumbs.display,
+                    alt: safeName,
+                });
 
                 editor.dom.replace(newEl, id);
             }).catch(err => {
@@ -724,9 +723,7 @@ class WysiwygEditor {
                     tooltip: 'Insert an image',
                     onclick: function () {
                         window.ImageManager.show(function (image) {
-                            let html = `<a href="${image.url}" target="_blank">`;
-                            html += `<img src="${image.thumbs.display}" alt="${image.name}">`;
-                            html += '</a>';
+                            let html = `<img src="${image.thumbs.display}" alt="${image.name}">`;
                             editor.execCommand('mceInsertContent', false, html);
                         }, 'gallery');
                     }
