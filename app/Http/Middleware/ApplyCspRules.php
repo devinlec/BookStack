@@ -30,7 +30,7 @@ class ApplyCspRules
     {
         view()->share('cspNonce', $this->cspService->getNonce());
         if ($this->cspService->allowedIFrameHostsConfigured()) {
-            config()->set('session.same_site', 'none');
+            config()->set('session.same_site', 'lax');
         }
 
         $response = $next($request);
