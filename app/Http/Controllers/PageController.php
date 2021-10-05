@@ -4,6 +4,7 @@ namespace BookStack\Http\Controllers;
 
 use BookStack\Actions\View;
 use BookStack\Entities\Models\Page;
+use BookStack\Entities\Models\PageRevision;
 use BookStack\Entities\Repos\PageRepo;
 use BookStack\Entities\Tools\BookContents;
 use BookStack\Entities\Tools\NextPreviousContentLocator;
@@ -259,13 +260,13 @@ class PageController extends Controller
         }
 
         $draft = $this->pageRepo->updatePageDraft($page, $request->only(['name', 'html', 'markdown']));
-
-        $updateTime = $draft->updated_at->timestamp;
+        $warnings = (new PageEditActivity($page))->getWarningMessagesForDraft($draft);
 
         return response()->json([
             'status'    => 'success',
             'message'   => trans('entities.pages_edit_draft_save_at'),
-            'timestamp' => $updateTime,
+            'warning'   => implode("\n", $warnings),
+            'timestamp' => $draft->updated_at->timestamp,
         ]);
     }
 

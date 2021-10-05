@@ -2,7 +2,6 @@
 
 namespace BookStack\Providers;
 
-use Blade;
 use BookStack\Auth\Access\LoginService;
 use BookStack\Auth\Access\SocialAuthService;
 use BookStack\Entities\BreadcrumbsViewComposer;
@@ -12,13 +11,15 @@ use BookStack\Entities\Models\Chapter;
 use BookStack\Entities\Models\Page;
 use BookStack\Settings\Setting;
 use BookStack\Settings\SettingService;
+use BookStack\Util\CspService;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Socialite\Contracts\Factory as SocialiteFactory;
-use Schema;
-use URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -70,6 +71,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(SocialAuthService::class, function ($app) {
             return new SocialAuthService($app->make(SocialiteFactory::class), $app->make(LoginService::class));
+        });
+
+        $this->app->singleton(CspService::class, function ($app) {
+            return new CspService();
         });
     }
 }
