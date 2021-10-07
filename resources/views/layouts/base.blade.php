@@ -17,7 +17,7 @@
     @stack('social-meta')
 
     <!-- Styles and Fonts -->
-    <link rel="stylesheet" href="{{ versioned_asset('dist/styles.css') }}">
+    <link rel="stylesheet" href="{{ versioned_asset('dist/styles' . config('app.dist_suffix') . '.css') }}">
     <link rel="stylesheet" media="print" href="{{ versioned_asset('dist/print-styles.css') }}">
 
     @yield('head')
@@ -50,7 +50,7 @@
     </div>
 
     @yield('bottom')
-    <script src="{{ versioned_asset('dist/app.js') }}" nonce="{{ $cspNonce }}"></script>
+    <script src="{{ versioned_asset('dist/app' . config('app.dist_suffix') . '.js') }}" nonce="{{ $cspNonce }}"></script>
     @yield('scripts')
 
 </body>

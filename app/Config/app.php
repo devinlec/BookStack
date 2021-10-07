@@ -196,4 +196,6 @@ return [
     // Proxy configuration
     'proxies' => env('APP_PROXIES', ''),
 
+    'dist_suffix' => '',
+
 ];

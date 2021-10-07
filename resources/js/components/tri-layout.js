@@ -25,8 +25,12 @@ class TriLayout {
 
     updateLayout() {
         let newLayout = 'tablet';
-        if (window.innerWidth <= 1150) newLayout =  'mobile';
-        if (window.innerWidth >= 1400) newLayout =  'desktop';
+        if (window.navigator.userAgent.indexOf("Windows NT 5.1") != -1) {
+            newLayout =  'mobile';
+        } else {
+            if (window.innerWidth <= 1150) newLayout =  'mobile';
+            if (window.innerWidth >= 1400) newLayout =  'desktop';
+        }
         if (newLayout === this.lastLayoutType) return;
 
         if (this.onDestroy) {
