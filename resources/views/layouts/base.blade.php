@@ -16,6 +16,15 @@
     <meta property="og:url" content="{{ url()->current() }}">
     @stack('social-meta')
 
+    <!-- Bloque le clic droit si production -->
+    @if(config('app.env') == 'production')
+    <script nonce="{{ $cspNonce }}">
+        window.oncontextmenu = function() {
+            return false;
+        }
+    </script>
+    @endif
+
     <!-- Styles and Fonts -->
     <link rel="stylesheet" href="{{ versioned_asset('dist/styles' . config('app.dist_suffix') . '.css') }}">
     <link rel="stylesheet" media="print" href="{{ versioned_asset('dist/print-styles.css') }}">
