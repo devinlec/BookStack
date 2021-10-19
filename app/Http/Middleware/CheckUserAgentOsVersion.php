@@ -17,7 +17,8 @@ class CheckUserAgentOsVersion
      */
     public function handle($request, Closure $next)
     {
-        if(stripos($request->userAgent(), "Windows NT 5.1") !== false) {
+        preg_match("/Windows NT ([0-9]+)/", $request->userAgent(), $matches);
+        if(count($matches) == 2 && $matches[1] <= 5) {
             config()->set('app.dist_suffix', '_xp');
         }
 
