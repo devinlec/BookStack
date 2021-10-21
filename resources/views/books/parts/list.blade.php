@@ -3,11 +3,11 @@
         <h1 class="list-heading">{{ trans('entities.books') }}</h1>
         <div class="text-m-right my-m">
 
-            @include('entities.sort', ['options' => [
+            <!--@include('entities.sort', ['options' => [
                 'name' => trans('common.sort_name'),
                 'created_at' => trans('common.sort_created_at'),
                 'updated_at' => trans('common.sort_updated_at'),
-            ], 'order' => $order, 'sort' => $sort, 'type' => 'books'])
+            ], 'order' => $order, 'sort' => $sort, 'type' => 'books'])-->
 
         </div>
     </div>

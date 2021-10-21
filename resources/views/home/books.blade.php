@@ -18,9 +18,9 @@
                     <span>{{ trans('entities.books_create') }}</span>
                 </a>
             @endif
-            @include('entities.view-toggle', ['view' => $view, 'type' => 'books'])
+            <!--@include('entities.view-toggle', ['view' => $view, 'type' => 'books'])-->
             @include('home.parts.expand-toggle', ['classes' => 'text-primary', 'target' => '.entity-list.compact .entity-item-snippet', 'key' => 'home-details'])
-            @include('common.dark-mode-toggle', ['classes' => 'icon-list-item text-primary'])
+            <!--@include('common.dark-mode-toggle', ['classes' => 'icon-list-item text-primary'])-->
         </div>
     </div>
 @stop

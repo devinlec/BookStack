@@ -43,7 +43,7 @@
                 </a>
             @endif
 
-            @include('entities.view-toggle', ['view' => $view, 'type' => 'books'])
+            <!--@include('entities.view-toggle', ['view' => $view, 'type' => 'books'])-->
         </div>
     </div>
 
