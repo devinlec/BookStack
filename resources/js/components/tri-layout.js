@@ -25,8 +25,8 @@ class TriLayout {
 
     updateLayout() {
         let newLayout = 'tablet';
-        let windowsVersion = RegExp('Windows NT ([0-9]+)', 'g').exec(window.navigator.userAgent);
-        if (windowsVersion.length == 2 && windowsVersion[1] <= 5) {
+        let windowsVersion = /Windows NT (\d+)/g.exec(window.navigator.userAgent);
+        if (windowsVersion !== null && windowsVersion.length == 2 && windowsVersion[1] <= 5) {
             newLayout =  'mobile';
         } else {
             if (window.innerWidth <= 1150) newLayout =  'mobile';
